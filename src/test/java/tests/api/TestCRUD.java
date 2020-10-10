@@ -17,4 +17,10 @@ public class TestCRUD {
     public void testGetMetaInfoAboutUsersDisk() {
         request.getDiskMetaInfo();
     }
+
+    @Severity(SeverityLevel.NORMAL)
+    @Test(description = "Получить метаинформацию о файле или каталоге")
+    public void testGetFileOrFolderMetaInfo() {
+        request.getFileOrFolderMetaInfo();
+    }
 }

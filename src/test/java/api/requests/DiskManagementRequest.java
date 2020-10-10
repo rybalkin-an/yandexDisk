@@ -1,18 +1,33 @@
 package api.requests;
 
-import io.restassured.response.ValidatableResponse;
+import io.qameta.allure.Step;
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
+import static org.hamcrest.Matchers.equalTo;
 
 public class DiskManagementRequest extends BaseRequest{
-    public String path = "/v1/disk";
+    public String path = "/v1/disk/resources";
 
-    public ValidatableResponse getDiskMetaInfo(){
-        return givenWithAuth()
-                .spec(getRequestBuilder(host + path).build())
+    @Step("GET Запрос на получение метаинформации о диске пользователя")
+    public void getDiskMetaInfo(){
+        givenWithAuth()
+                .spec(getRequestBuilder(host + "/v1/disk").build())
                 .when()
-                .get(host + path)
+                .get()
                 .then()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("getMetaInfo.json"));
+    }
+
+    @Step("GET Запрос на получение метаинформации о диске пользователя")
+    public void getFileOrFolderMetaInfo(){
+        givenWithAuth()
+                .spec(getRequestBuilder(host + path + "?path=/").build())
+                .when()
+                .get(host + path + "?path=/")
+                .then()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("getFileOrFolderMetaInfo.json"))
+                .and()
+                .body("_embedded.total", equalTo(10));
     }
 }
