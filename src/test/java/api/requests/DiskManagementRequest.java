@@ -3,11 +3,13 @@ package api.requests;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
-import static org.hamcrest.Matchers.equalTo;
+import java.io.IOException;
 
 public class DiskManagementRequest extends BaseRequest{
     public String path = "/v1/disk/resources";
+
+    public DiskManagementRequest() throws IOException {
+    }
 
     @Step("GET Запрос: Получение метаинформации о диске пользователя")
     public Response getDiskMetaInfo(){
@@ -51,6 +53,18 @@ public class DiskManagementRequest extends BaseRequest{
                 .delete(host + path + "?path=" + folderName)
                 .then()
                 .statusCode(204);
+    }
+
+    @Step("GET Запрос: Получить сслыку на скачивание файла")
+    public Response getDownloadLink(String folderName){
+        return givenWithAuth()
+                .spec(getRequestBuilder(host + path).build())
+                .when()
+                .get(host + path + "/download/?path=" + folderName)
+                .then()
+                .statusCode(200)
+                .extract()
+                .response();
     }
 
 }
