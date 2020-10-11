@@ -72,7 +72,7 @@ public class DiskManagementRequest extends BaseRequest{
     public Response patchUserData(String folderName, FileProperty fileProperty){
         return givenWithAuth()
                 .spec(getRequestBuilder(host + path).build())
-                .body(fileProperty).log().all()
+                .body(fileProperty)
                 .when()
                 .patch(host + path + "/?path=" + folderName)
                 .then()
