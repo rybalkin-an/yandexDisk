@@ -16,7 +16,7 @@ public class BaseRequest {
 
     public RequestSpecification givenWithAuth(){
         return given()
-                .headers("Authorization","OAuth " + token);
+                .headers("Authorization","OAuth " + token, "Content-Type", "application/json");
     }
 
     public RequestSpecBuilder getRequestBuilder(String baseUrl){

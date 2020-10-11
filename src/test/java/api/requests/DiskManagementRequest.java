@@ -2,11 +2,12 @@ package api.requests;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import models.request.api.v1.disk.FileProperty;
 
 import java.io.IOException;
 
 public class DiskManagementRequest extends BaseRequest{
-    public String path = "/v1/disk/resources";
+    private final String path = "/v1/disk/resources";
 
     public DiskManagementRequest() throws IOException {
     }
@@ -61,6 +62,19 @@ public class DiskManagementRequest extends BaseRequest{
                 .spec(getRequestBuilder(host + path).build())
                 .when()
                 .get(host + path + "/download/?path=" + folderName)
+                .then()
+                .statusCode(200)
+                .extract()
+                .response();
+    }
+
+    @Step("PATCH Запрос: Обновить пользовательские данные ресурса")
+    public Response patchUserData(String folderName, FileProperty fileProperty){
+        return givenWithAuth()
+                .spec(getRequestBuilder(host + path).build())
+                .body(fileProperty).log().all()
+                .when()
+                .patch(host + path + "/?path=" + folderName)
                 .then()
                 .statusCode(200)
                 .extract()
