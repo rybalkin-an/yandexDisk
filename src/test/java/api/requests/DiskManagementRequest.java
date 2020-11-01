@@ -3,7 +3,6 @@ package api.requests;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import models.request.api.v1.disk.FileProperty;
-
 import java.io.IOException;
 
 public class DiskManagementRequest extends BaseRequest{

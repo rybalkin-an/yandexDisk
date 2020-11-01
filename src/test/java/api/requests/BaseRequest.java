@@ -7,22 +7,22 @@ import java.io.IOException;
 import static io.restassured.RestAssured.given;
 
 public class BaseRequest {
-    public String host;
-    public String token = "AgAAAAAol0y6AAaGfbNNMk57uE-bvUUFdSFvU_w";
+    protected String host;
+    protected String token;
 
-    public BaseRequest() throws IOException {
+    protected BaseRequest() throws IOException {
         host = ParametersProvider.getProperty("url");
+        token = ParametersProvider.getProperty("authToken");
     }
 
-    public RequestSpecification givenWithAuth(){
-        return given()
-                .headers("Authorization","OAuth " + token, "Content-Type", "application/json");
+    protected RequestSpecification givenWithAuth() {
+        return given().headers("Authorization","OAuth " + token, "Content-Type", "application/json");
     }
 
-    public RequestSpecBuilder getRequestBuilder(String baseUrl){
+    protected RequestSpecBuilder getRequestBuilder(String baseUrl) {
         return new RequestSpecBuilder()
                 .setBaseUri(baseUrl)
                 .setAccept("*/*");
-
     }
+
 }

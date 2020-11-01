@@ -3,5 +3,6 @@
 <properties>
 
     <entry key="url">https://cloud-api.yandex.net</entry>
+    <entry key="authToken">AgAAAAAol0y6AAaGfbNNMk57uE-bvUUFdSFvU_w</entry>
 
 </properties>
