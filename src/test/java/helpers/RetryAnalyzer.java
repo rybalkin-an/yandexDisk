@@ -3,6 +3,7 @@ package helpers;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
+// this is used for run the methods that failed
 public class RetryAnalyzer implements IRetryAnalyzer {
 
     int counter = 0;
