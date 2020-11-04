@@ -42,9 +42,7 @@ public class TestCRUD {
     public void testGetFileOrFolderMetaInfo() {
         response = request.getFileOrFolderMetaInfo("/");
         response.then()
-                .statusCode(200)
-                .assertThat()
-                .body(matchesJsonSchemaInClasspath("getFileOrFolderMetaInfo.json"));
+                .statusCode(200);
     }
 
     @Severity(SeverityLevel.CRITICAL)
